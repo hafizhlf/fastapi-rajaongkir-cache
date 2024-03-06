@@ -32,7 +32,7 @@ def cache_data(key: str, data: dict) -> None:
     cache[key] = (data, datetime.now())
 
 
-async def get_shipping_cost(origin: str, destination: str, weight: int, courier: str) -> dict:
+async def get_shipping_cost(origin: int, destination: int, weight: int, courier: str) -> dict:
     cache_key = f"shipping_cost_{origin}_{destination}_{weight}_{courier}"
     shipping_cost = get_from_cache(cache_key)
     if shipping_cost is not None:
@@ -136,7 +136,7 @@ async def get_subdistricts(city_id: int) -> dict:
 
 
 @app.get("/shipping-cost/")
-async def calculate_shipping_cost(origin: str, destination: str, weight: int, courier: str):
+async def calculate_shipping_cost(origin: int, destination: int, weight: int, courier: str):
     """
     Calculates shipping cost based on origin, destination, weight, and courier.
     """
